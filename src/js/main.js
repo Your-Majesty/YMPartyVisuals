@@ -6,9 +6,9 @@ wh = window.innerHeight,
 speed = 1,
 mouseX = 0,
 colors = [
-                0x442D65,0x775BA3,0x91C5A9,0xF8E1B4,
-                0xF98A5F,0xF9655F,0x442D65,0x775BA3,
-                0x91C5A9,0xF8E1B4,0xF98A5F,0xF9655F
+0x442D65,0x775BA3,0x91C5A9,0xF8E1B4,
+0xF98A5F,0xF9655F,0x442D65,0x775BA3,
+0x91C5A9,0xF8E1B4,0xF98A5F,0xF9655F
             ],
 closest = {position:{z:0}},
 farest = {position:{z:0}},
@@ -89,7 +89,44 @@ var addCircle = function(top){
         var material = new THREE.MeshBasicMaterial({
             color: colors[j]
         });
-        var circleGeometry = new THREE.CircleGeometry( radius, segments );              
+        
+        switch(j) {
+            case 0:
+                      var circleGeometry = new THREE.BoxGeometry( 1, 1, 1 );
+                break;
+            case 1:
+                    var circleGeometry = new THREE.SphereGeometry( 5, 32, 32 );
+                break;
+            case 3:
+                      var circleGeometry = new THREE.RingGeometry( 1, 5, 32 );
+            break;
+            case 4:
+                      var circleGeometry = new THREE.ConeGeometry( 15, 1, 2 );
+            break;
+            case 5:
+                      var circleGeometry = new THREE.BoxGeometry( 1, 1, 1 );
+            break;    
+            case 6:
+                      var circleGeometry = new THREE.BoxGeometry( 1, 1, 1 );
+            break;
+            case 7:
+                    var circleGeometry = new THREE.SphereGeometry( 5, 32, 32 );
+                break;
+            case 8:
+                      var circleGeometry = new THREE.RingGeometry( 1, 5, 32 );
+            break;
+            case 9:
+                      var circleGeometry = new THREE.ConeGeometry( 15, 1, 2 );
+            break;
+            case 10:
+                      var circleGeometry = new THREE.BoxGeometry( 1, 1, 1 );
+            break;            
+
+        }
+
+        
+            
+              
         var circle = new THREE.Mesh( circleGeometry, material );
         var translate = new THREE.Matrix4().makeTranslation(30,0,0);
         var rotation =  new THREE.Matrix4().makeRotationZ(Math.PI*2/12*j+row.degreesRotation*.3);
