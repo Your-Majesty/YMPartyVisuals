@@ -34,25 +34,25 @@ class Midsummer {
       this.flowers[i].meshModify(this.tunnelVertices[this.currentVertice].x, this.tunnelVertices[this.currentVertice].y, this.tunnelVertices[this.currentVertice].z);
     }
 
-   this.fft = new Tone.Analyser("fft", 32);
-    this.waveform = new Tone.Analyser("waveform", 1024);
-    this.player = new Tone.Player({
-      'url' : '../../../assets/midsummer-loop.mp3',
-      'loop' : true,
-      'autostart' : true
-    }).fan(this.fft, this.waveform).toMaster();
+   // this.fft = new Tone.Analyser("fft", 32);
+   //  this.waveform = new Tone.Analyser("waveform", 1024);
+   //  this.player = new Tone.Player({
+   //    'url' : '../../../assets/midsummer-loop.mp3',
+   //    'loop' : true,
+   //    'autostart' : true
+   //  }).fan(this.fft, this.waveform).toMaster();
     
-    window.addEventListener('resize', () => {
-      this.resize()
-    })
+    // window.addEventListener('resize', () => {
+    //   this.resize()
+    // })
 
-    window.addEventListener('blur', () => {
-      this.player.stop()
-    });
+    // window.addEventListener('blur', () => {
+    //   this.player.stop()
+    // });
 
-    window.addEventListener('focus', () => {
-      this.player.start()
-    });
+    // window.addEventListener('focus', () => {
+    //   this.player.start()
+    // });
 
     this.animate()
   }
@@ -93,11 +93,11 @@ class Midsummer {
     
 
 
-    this.waveformValues = this.fft.analyse();
-    this.soundVal = this.analizeSound(this.waveformValues)
+    // this.waveformValues = this.fft.analyse();
+    // this.soundVal = this.analizeSound(this.waveformValues)
     this.tunnel.render()
 
-    this.velocity += 0.0001
+    this.velocity += 2
     for (var i = 0; i < this.flowers.length; i++) {
       this.flowers[i].animate(0.2);
     }
@@ -162,30 +162,6 @@ class Midsummer {
     this.camera.updateProjectionMatrix();
  }
 
-  addParticles(){
-
-    let positions = [];
-
-    for (let k =0; k < this.totalParticles; k++) {
-      positions.push(toxi.geom.Vec3D.randomVector().scale(100+Math.random()*300));
-    }
-
-
-
-    let geom = new THREE.Geometry();
-    geom.vertices = positions.map(function(v) { 
-      return new THREE.Vector3(v.x, v.y, v.z); 
-    });
-      
-    let material = new THREE.PointsMaterial({
-      color: 0x000000,
-      transparent: true,
-      blending: THREE.AdditiveBlending
-    });
-
-    let particleSystem = new THREE.Points( geom, material );
-    this.scene.add( particleSystem );
-  }
 
   render() {
     this.renderer.render( this.scene, this.camera )

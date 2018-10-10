@@ -13,8 +13,8 @@ class Tunnel {
     this.cameraTravelledStep = 0
     this.cameraRotationStep = 0.0
 
-    this.cameraTravelIncrement = 0.000013
-    this.cameraRotationIncrement = 0.0002
+    this.cameraTravelIncrement = 0.0005
+    this.cameraRotationIncrement = 0.005
 
     this.pointsPerTunnel = []
 
@@ -23,14 +23,14 @@ class Tunnel {
 
   createTunnel() {
 
-    this.geom = this.createTunnelGeometry(this.pointsSpline, 512, 20, 10);
+    this.geom = this.createTunnelGeometry(this.pointsSpline, 90, 10, 10);
     this.tunnel = this.createTunnelMesh(this.geom);
     this.scene.add(this.tunnel);
   }
 
   createTunnelMesh () {
 
-    this.material = new THREE.MeshBasicMaterial({transparent: true, opacity: 0, side:THREE.DoubleSide, wireframe: true});
+    this.material = new THREE.MeshBasicMaterial({transparent: false, opacity: 1, side:THREE.DoubleSide, wireframe: true});
     return new THREE.Mesh(this.geom, this.material);
   }
 
@@ -41,9 +41,9 @@ class Tunnel {
 
     for (let i = 0; i < nbPoints; i++)
     {
-      let randomX = previousPoint.x + 5 + Math.round(Math.random() * 500)
-      let randomY = previousPoint.y + 5 + Math.round(Math.random() * 500)
-      let randomZ = previousPoint.z + 5 + Math.round(Math.random() * 500)
+      let randomX = previousPoint.x + 5 
+      let randomY = previousPoint.y + 5 + Math.round(Math.random() * 100)
+      let randomZ = previousPoint.z + 5 + Math.round(Math.random() * 100)
 
       previousPoint.x = randomX
       previousPoint.y = randomY
@@ -53,7 +53,7 @@ class Tunnel {
     }
 
     this.spline = new THREE.CatmullRomCurve3(this.points)
-    for (var i = (1/500); i < 1; i+= (1/500)) {
+    for (var i = (1/90); i < 1; i+= (1/90)) {
       this.pointsPerTunnel.push(this.spline.getPointAt(i))
     }
 

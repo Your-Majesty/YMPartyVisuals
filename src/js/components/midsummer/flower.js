@@ -36,11 +36,10 @@ class Flower {
 
     this.scaleRandom = Math.random() * (4.4 - 2) + 2
 
-    this.sh = new toxi.geom.mesh.SphericalHarmonics( this.m )
-    this.builder = new toxi.geom.mesh.SurfaceMeshBuilder( this.sh )
-    this.toxiMesh = this.builder.createMesh( new toxi.geom.mesh.TriangleMesh(), this.resolution, 1, true)
-    this.threeGeometry = toxi.THREE.ToxiclibsSupport.createMeshGeometry(this.toxiMesh)
-    this.threeMesh = new THREE.Mesh( this.threeGeometry, this.material )
+    var geometry = new THREE.SphereGeometry( 1, 2, 2 );
+    var material = new THREE.MeshBasicMaterial( {color: 0xffff00} );
+    this.threeMesh = new THREE.Mesh( geometry, material );
+
     this.scene.add(this.threeMesh)
 
   }
