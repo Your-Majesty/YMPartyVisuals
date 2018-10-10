@@ -3,7 +3,7 @@ const THREE = require('three')
 
 var ww = window.innerWidth,
 wh = window.innerHeight,
-speed = 1,
+speed = 9,
 mouseX = 0,
 colors = [
 0x442D65,0x775BA3,0x91C5A9,0xF8E1B4,
@@ -12,8 +12,8 @@ colors = [
             ],
 closest = {position:{z:0}},
 farest = {position:{z:0}},
-radius = 5,
-segments = 32;
+radius = 10,
+segments = 150;
 
 function init(){
 
@@ -92,31 +92,31 @@ var addCircle = function(top){
         
         switch(j) {
             case 0:
-                      var circleGeometry = new THREE.BoxGeometry( 1, 1, 1 );
+                      var circleGeometry = new THREE.BoxGeometry( 10, 1, 1 );
                 break;
             case 1:
-                    var circleGeometry = new THREE.SphereGeometry( 5, 32, 32 );
+                    var circleGeometry = new THREE.SphereGeometry( 2, 32, 32 );
                 break;
             case 3:
-                      var circleGeometry = new THREE.RingGeometry( 1, 5, 32 );
+                      var circleGeometry = new THREE.RingGeometry( 5, 5, 32 );
             break;
             case 4:
                       var circleGeometry = new THREE.ConeGeometry( 15, 1, 2 );
             break;
             case 5:
-                      var circleGeometry = new THREE.BoxGeometry( 1, 1, 1 );
+                      var circleGeometry = new THREE.BoxGeometry( 40, 1, 1 );
             break;    
             case 6:
-                      var circleGeometry = new THREE.BoxGeometry( 1, 1, 1 );
+                      var circleGeometry = new THREE.BoxGeometry( 70, 1, 1 );
             break;
             case 7:
-                    var circleGeometry = new THREE.SphereGeometry( 5, 32, 32 );
+                    var circleGeometry = new THREE.SphereGeometry( 1, 32, 32 );
                 break;
             case 8:
-                      var circleGeometry = new THREE.RingGeometry( 1, 5, 32 );
+                      var circleGeometry = new THREE.RingGeometry( 40, 5, 32 );
             break;
             case 9:
-                      var circleGeometry = new THREE.ConeGeometry( 15, 1, 2 );
+                      var circleGeometry = new THREE.ConeGeometry( 50, 1, 2 );
             break;
             case 10:
                       var circleGeometry = new THREE.BoxGeometry( 1, 1, 1 );
@@ -124,11 +124,8 @@ var addCircle = function(top){
 
         }
 
-        
-            
-              
         var circle = new THREE.Mesh( circleGeometry, material );
-        var translate = new THREE.Matrix4().makeTranslation(30,0,0);
+        var translate = new THREE.Matrix4().makeTranslation(60,0,0);
         var rotation =  new THREE.Matrix4().makeRotationZ(Math.PI*2/12*j+row.degreesRotation*.3);
         circle.applyMatrix( new THREE.Matrix4().multiplyMatrices(rotation, translate) );
         row.add(circle);
