@@ -59,6 +59,7 @@ class Tunnel {
 
     return new THREE.TubeGeometry(this.spline, segments, radius, radiusSegments, false)
   }
+  
 
   render() {
 
