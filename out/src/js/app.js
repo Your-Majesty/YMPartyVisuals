@@ -43207,14 +43207,17 @@ var soundAllowed = function soundAllowed(stream) {
         var result = [];
         var sum = 0;
         var average = 0;
+        var limit = 20; ///////
         for (var i = 0; i < 255; i++) {
             var adjustedLength = Math.floor(frequencyArray[i]) - Math.floor(frequencyArray[i]) % 5;
             result.push(adjustedLength);
-            sum += adjustedLength;
+            i < limit ? sum += adjustedLength : null;
         }
-        average = sum / result.length;
-        document.querySelector('.average').style.height = average + 'px';
-        console.log(result);
+        average = sum / limit;
+        // document.querySelector('.average').style.height = average + 'px'
+
+        speed = 0.05 + average / 25;
+        // document.querySelector('canvas').style.transform = `scale3d(${1+averageReduced/10},${1+averageReduced/10},1)`
     };
     doDraw();
 };
