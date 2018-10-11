@@ -883,6 +883,8 @@ function init(){
 
     createCircles();
 
+    navigator.getUserMedia({audio:true}, soundAllowed, soundNotAllowed);
+
 }
 
 var resize = function(){
@@ -1017,5 +1019,44 @@ var render = function () {
     // renderer.render(scene, camera);
 
 };
+
+var soundAllowed = function (stream) {
+    //Audio stops listening in FF without // window.persistAudioStream = stream;
+    //https://bugzilla.mozilla.org/show_bug.cgi?id=965483
+    //https://support.mozilla.org/en-US/questions/984179
+    window.persistAudioStream = stream;
+    var audioContent = new AudioContext();
+    var audioStream = audioContent.createMediaStreamSource( stream );
+    var analyser = audioContent.createAnalyser();
+    audioStream.connect(analyser);
+    analyser.fftSize = 1024;
+
+    var frequencyArray = new Uint8Array(analyser.frequencyBinCount);
+  
+    //Through the frequencyArray has a length longer than 255, there seems to be no
+    //significant data after this point. Not worth visualizing.
+
+    var doDraw = function () {
+    
+        requestAnimationFrame(doDraw);
+        analyser.getByteFrequencyData(frequencyArray);
+        let result = []
+        let sum = 0
+        let average = 0
+        for (var i = 0 ; i < 255; i++) {
+            let adjustedLength = Math.floor(frequencyArray[i]) - (Math.floor(frequencyArray[i]) % 5);
+            result.push(adjustedLength)
+            sum += adjustedLength
+        }
+        average = sum/result.length
+        document.querySelector('.average').style.height = average + 'px'
+        console.log(result)
+    }
+    doDraw();
+}
+
+var soundNotAllowed = function (error) {
+    console.log(error);
+}
 
 init();
